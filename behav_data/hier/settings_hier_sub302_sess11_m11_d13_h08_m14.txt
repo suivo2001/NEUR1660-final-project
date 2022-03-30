@@ -1,0 +1,17 @@
+
+subject_id: 302
+at_scanner: 0
+TASK: h
+SEQ: cco
+fscr: 1
+stim_set: food
+TEST_VERSION: 0
+initial_block: 11
+do_instructions: 0
+single_run: 1
+feedback: 0
+b_set: sq
+dataloc: behav_data
+button_map: {'index': 'k', 'middle': 'l'}
+machine: 3
+square_category: 0

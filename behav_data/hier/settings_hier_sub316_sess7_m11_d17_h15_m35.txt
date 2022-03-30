@@ -1,0 +1,17 @@
+
+subject_id: 316
+at_scanner: 0
+TASK: h
+SEQ: cco
+fscr: 1
+stim_set: face
+TEST_VERSION: 0
+initial_block: 1
+do_instructions: 1
+single_run: 0
+feedback: 1
+b_set: sq
+dataloc: behav_data
+button_map: {0: 'k', 1: 'l'}
+machine: 1
+square_category: 0
