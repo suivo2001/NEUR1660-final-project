@@ -1,19 +1,20 @@
-function [rt, correct] = parallelProcessingSimulation()
+function [rt, correct, both_correct] = parallelProcessingSimulation(A1,c1,y1_0,z1,dt)
     % decision maker parameters for 1st stimulus
-    A1=1;
-    c1=1;
-    y1_0=0.3;
-    z1=0.5;
-    y1=y1_0;
-    % decision maker parameters for 2nd stimulus
-    A2=1;
-    c2=1;
-    y2_0=0.3;
-    z2=0.5;
+%     A1=1;
+%     c1=1;
+%     y1_0=0.3;
+%     z1=0.5;
+%     y1=y1_0;
+    
+    % decision maker parameters for 2nd stimulus (currently same as first parameter)
+    A2=A1;
+    c2=c1;
+    y2_0=y1_0;
+    z2=z1;
     y2=y2_0;
     % simulation parameters
     t0=0.25;
-    dt=0.01;
+    %dt=0.01;
     
     % simultaion
     steps=1;
@@ -43,8 +44,13 @@ function [rt, correct] = parallelProcessingSimulation()
     % Reaction time
     rt=t0+steps*dt;
     % Correct or not -> if both reached the correct threshold
-    correct=false;
-    if y1(steps)>z1 && y2(steps)>z2
-        correct=true;
+    correct=0;
+    both_correct=false;
+    if (y1(steps)>=z1 && y2(steps)>=z2 )
+        correct=1;
+        both_correct=1;
+    end
+    if (y2(steps)<=-z1 && y2(steps)<-z2)
+        correct=1;
     end
 end
