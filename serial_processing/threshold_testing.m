@@ -1,3 +1,5 @@
+clear all
+
 %% Define Parameters for Model
 %%% Set
 A=1; %drift rate
