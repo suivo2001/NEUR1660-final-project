@@ -4,7 +4,7 @@ function [rt, correct, both_correct] = parallelProcessingSimulation(A1,c1,y1_0,z
 %     c1=1;
 %     y1_0=0.3;
 %     z1=0.5;
-     y1=y1_0;
+%     y1=y1_0;
     
     % decision maker parameters for 2nd stimulus (currently same as first parameter)
     A2=A1;
