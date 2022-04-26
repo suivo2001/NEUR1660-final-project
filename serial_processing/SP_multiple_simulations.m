@@ -1,4 +1,4 @@
-function [percent_correct, avg_RT] = SP_multiple_simulations(A,c,dt,y01,z1,z2,T0,N)
+function [percent_correct, percent_falsepositive, avg_RT] = SP_multiple_simulations(A,c,dt,y01,z1,z2,T0,N)
 %% Serial Processing (SP) run on multiple simulations (N)
 % NEUR 1660: Final Project
 % Last Update: April 17, 2022
@@ -23,10 +23,12 @@ correct=zeros([1 N]);
 incorrect=zeros([1 N]);
 RT=zeros([1 N]);
 for f=1:N
-    [RT(f), correct(f), incorrect(f)] = serial_processing(A,c,dt,y01,z1,z2,T0);
+    [RT(f), correct(f), incorrect(f), false_positive(f)] = serial_processing(A,c,dt,y01,z1,z2,T0);
     clear y; clear y01; clear y02;
     y01=0;
 end
 
 percent_correct=mean(correct)*100;
+percent_falsepositive=mean(false_positive)*100;
 avg_RT=mean(RT);
+end
