@@ -42,3 +42,10 @@ xline(i)
 title('Evidence Accumulation for z1=0.4,z2=0.9,dt=0.01')
 ylabel('Evidence Accumulation')
 xlabel('Time Step')
+
+
+% Display only thresholds that matter
+% Have a label/title that states whether decision was correct or not at
+% each threshold
+
+% define correctness - false positives?
