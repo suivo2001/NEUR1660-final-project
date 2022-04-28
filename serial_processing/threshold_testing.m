@@ -1,44 +1,61 @@
-clc; clear; close all;
 %% Define Parameters for Model
-%%% Set
+clear; clc; close all;
 A=1; %drift rate
 c=1; %noise
-N=1000; %num trials
+N=200; %num trials
 y01=0; %starting point
-z2=0.9; %threshold for stimulus 2
 T0=0.01; %non-decision time
-dt=0.01; % time step
+dt=0.05; % time step
 
 %%% Alter
-z1=0.1:0.05:0.8; %threshold
+z1=0.1:0.05:0.85;
+z2=0.15:0.05:0.9;
 
 for k=1:length(z1)
-    [percent_correct(k), avg_RT(k)] = SP_multiple_simulations(A,c,dt,y01,z1(k),z2,T0,N);
+    for p=1:length(z2)
+        [percent_correct(k,p), percent_falsepositive(k,p), avg_RT(k,p)] = SP_multiple_simulations(A,c,dt,y01,z1(k),z2(p),T0,N);
+    end
 end
+%%
+figure(3);
+hold on
+imagesc(z1, z2, avg_RT);
+xlim([0.1, 0.85])
+ylim([0.15 0.9])
+colorbar
+xlabel('z1')
+ylabel('z2')
+hold off
+sgtitle('Threshold Impacts on RT')
 
-figure(1)
-subplot(211)
-plot(z1,avg_RT, 'o')
-ylabel('Reaction Time (s)')
-subplot(212)
-plot(z1,percent_correct, 'o')
-ylabel('Accuracy (%)')
-xlabel('Threshold')
-sgtitle('Stimulus 1 Threshold Impacts on Accuracy and RT')
-
-%% Change z2
-z1=0.3;
-z2=0.4:0.05:0.95;
-for k=1:length(z2)
-    [percent_correct2(k), avg_RT2(k)] = SP_multiple_simulations(A,c,dt,y01,z1,z2(k),T0,N);
-end
-
-figure(2)
-subplot(211)
-plot(z2,avg_RT2, 'o')
-ylabel('Reaction Time (s)')
-subplot(212)
-plot(z2,percent_correct2, 'o')
-ylabel('Accuracy (%)')
-xlabel('Threshold')
-sgtitle('Stimulus 2 Threshold Impacts on Accuracy and RT')
+%%
+figure(4);
+subplot(131)
+hold on
+imagesc(z1, z2, percent_falsepositive);
+xlim([0.1, 0.85])
+ylim([0.15 0.9])
+colorbar
+title('% Correct (FALSE +)')
+xlabel('z1')
+ylabel('z2')
+subplot(132)
+hold on
+imagesc(z1, z2, percent_correct-percent_falsepositive);
+xlim([0.1, 0.85])
+ylim([0.15 0.9])
+colorbar
+title('% Correct (Adjusted)')
+xlabel('z1')
+ylabel('z2')
+subplot(133)
+hold on
+imagesc(z1, z2, percent_correct)%-percent_falsepositive);
+xlim([0.1, 0.85])
+ylim([0.15 0.9])
+colorbar
+title('% Correct (Total)')
+xlabel('z1')
+ylabel('z2')
+hold off
+sgtitle('Threshold Impact on False Positives')
