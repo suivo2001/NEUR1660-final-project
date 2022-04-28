@@ -12,13 +12,17 @@ function [rt, correct, both_correct] = parallelProcessingSimulation(A1,c1,y1_0,z
     y2_0=y1_0;
     z2=z1;
     y2=y2_0;
+    
     % simulation parameters
     t0=0.25;
     %dt=0.01;
     
+    % storage matrices for visualization
+    %accumulation = zeros();
+    
     % simulation
     steps=1;
-    while abs(y1(steps))<z1 && abs(y2(steps))<z2
+    while abs(y1(steps))<z1 || abs(y2(steps))<z2
         % first parameter update
         if abs(y1(steps))<z1
             r1=randn(1);
@@ -39,10 +43,17 @@ function [rt, correct, both_correct] = parallelProcessingSimulation(A1,c1,y1_0,z
         else
             y2(steps+1)=y2(steps);
         end
+        %accumulation(1, steps) = y1(steps);
+        %accumulation(2, steps) = y2(steps);
         steps=steps+1;
     end
+    
+    %accumulation(1, steps) = y1(steps);
+    %accumulation(2, steps) = y2(steps);
+    
     % Reaction time
     rt=t0+steps*dt;
+    
     % Correct or not -> if both reached the correct threshold
     correct=0;
     both_correct=false;
@@ -53,4 +64,5 @@ function [rt, correct, both_correct] = parallelProcessingSimulation(A1,c1,y1_0,z
     if (y2(steps)<=-z1 && y2(steps)<-z2)
         correct=1;
     end
+
 end

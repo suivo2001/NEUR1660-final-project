@@ -4,7 +4,7 @@ function [rt, correct, both_correct] = parallelProcessingSimulation(A1,c1,y1_0,z
 %     c1=1;
 %     y1_0=0.3;
 %     z1=0.5;
-%     y1=y1_0;
+     y1=y1_0;
     
     % decision maker parameters for 2nd stimulus (currently same as first parameter)
     A2=A1;
@@ -12,9 +12,13 @@ function [rt, correct, both_correct] = parallelProcessingSimulation(A1,c1,y1_0,z
     y2_0=y1_0;
     z2=z1;
     y2=y2_0;
+    
     % simulation parameters
     t0=0.25;
     %dt=0.01;
+    
+    % storage matrices for visualization
+    accumulation = zeros();
     
     % simulation
     steps=1;
@@ -24,6 +28,7 @@ function [rt, correct, both_correct] = parallelProcessingSimulation(A1,c1,y1_0,z
             r1=randn(1);
             dW1=sqrt(dt)*r1;
             dy1=A1*dt+c1*dW1;
+            accumulation(1, steps) = y1(steps
             y1(steps+1)=y1(steps)+dy1;
         % keep same value if reached threshold
         else
@@ -41,8 +46,10 @@ function [rt, correct, both_correct] = parallelProcessingSimulation(A1,c1,y1_0,z
         end
         steps=steps+1;
     end
+    
     % Reaction time
     rt=t0+steps*dt;
+    
     % Correct or not -> if both reached the correct threshold
     correct=0;
     both_correct=false;
@@ -50,7 +57,8 @@ function [rt, correct, both_correct] = parallelProcessingSimulation(A1,c1,y1_0,z
         correct=1;
         both_correct=1;
     end
-    if (y2(steps)<=-z1 && y2(steps)<-z2)
+    if (y2(steps)<=-z1 && y2(steps)<=-z2)
         correct=1;
     end
+
 end

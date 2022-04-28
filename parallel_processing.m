@@ -25,7 +25,7 @@ clear all;
 % ~~ Parameters ~~
 A = 1;
 c = 1;
-y1_0 = 0.3;
+y1_0 = 0;
 z = 0.5;
 %z1 = 0.5;
 %z2 = z1;
@@ -110,7 +110,7 @@ percent_both_correct_TStest = zeros();
 
 % ~~ Simulation ~~
 for k = 1:length(dt)
-    [avg_RT_TStest(k), ~, percent_correct_TStest(k), percent_both_correct_TStest(k)] = parallelProcessingTrial(A, c, y1_0, z1, dt(k));
+    [avg_RT_TStest(k), ~, percent_correct_TStest(k), percent_both_correct_TStest(k)] = parallelProcessingTrial(A, c, y1_0, z, dt(k));
 end
 
 % ~~ Plot ~~
@@ -151,12 +151,17 @@ subplot(211)
 imagesc(A, z, avg_RT_DRTHtest);
 ylabel('Threshold')
 title('RT')
+colorbar
 subplot(212)
 imagesc(A, z, percent_correct_DRTHtest - (1 - percent_both_correct_DRTHtest));
 ylabel('Threshold')
 title('Accuracy (Both Correct)')
+colorbar
 %subplot(313)
 %imagesc(A, z, percent_both_correct_DRTHtest);
 %ylabel('Threshold')
 xlabel('Drift Rate')
 sgtitle('Effect of Drift Rate and Threshold on RT and Accuracy')
+
+A = 1;
+z = 0.5;
