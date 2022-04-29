@@ -14,7 +14,7 @@ function [rt, correct, both_correct] = parallelProcessingSimulation(A1,c1,y1_0,z
     y2=y2_0;
     
     % simulation parameters
-    t0=0.25;
+    t0=0.01;
     %dt=0.01;
     
     % storage matrices for visualization
@@ -56,13 +56,20 @@ function [rt, correct, both_correct] = parallelProcessingSimulation(A1,c1,y1_0,z
     
     % Correct or not -> if both reached the correct threshold
     correct=0;
-    both_correct=false;
+    both_correct=0;
     if (y1(steps)>=z1 && y2(steps)>=z2 )
         correct=1;
         both_correct=1;
     end
-    if (y2(steps)<=-z1 && y2(steps)<-z2)
+    if (y2(steps)<=-z1 && y2(steps)<=-z2)
         correct=1;
     end
-
+    
+%     figure
+%     plot(1:steps,y1, 1:steps,y2)
+%     title('parallel processing')
+%     yline(z1,'--')
+%     yline(-z1,'--')
+%     ylim([-1.2,1.2])
+%     legend('stimulus 1', 'stimulus 2', 'upper threshold', 'lower threshold')
 end

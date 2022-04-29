@@ -1,4 +1,3 @@
-[rt,choice]=parallelProcessingSimulation();
 %%
 clear all;
 %% -- NEUR1660 Final Project -- Parallel Processing Function (DDM Model)
@@ -165,3 +164,103 @@ sgtitle('Effect of Drift Rate and Threshold on RT and Accuracy')
 
 A = 1;
 z = 0.5;
+
+%% Finding best parameters that match the results (time step, threshold):
+
+% ~~ Parameters ~~
+A = 1;
+c = 1;
+y1_0 = 0;
+z_vals = 0:0.05:1;
+dt_vals = 0.01:0.05:0.8;
+
+% ~~ Experimental ~~
+exp_rt=1.26;
+exp_correct=0.92;
+
+
+
+% ~~ Initialize Matrices ~~
+avg_RT = zeros();
+percent_correct = zeros();
+percent_both_correct = zeros();
+
+% ~~ Parameters to find max ~~
+delta=1000;
+best_dt=-1;
+best_z=-1;
+
+
+
+% ~~ Simulation ~~
+for k = 1:length(dt_vals)
+    for j = 1:length(z_vals)
+        [avg_RT(k,j), ~, percent_correct(k,j), percent_both_correct(k,j)] = parallelProcessingTrial(A, c, y1_0, z_vals(j), dt_vals(k));
+        difference=abs(avg_RT(k,j)-exp_rt)+abs(percent_correct(k,j)-exp_correct);
+        if difference<delta
+            best_dt=k;
+            best_z=j;
+            delta=difference;
+        end
+    end     
+end
+tuned_rt=avg_RT(best_dt,best_z)
+tuned_correct=percent_correct(best_dt,best_z)
+true_positive=percent_both_correct(best_dt,best_z)
+best_dt=dt_vals(best_dt);
+best_z=z_vals(best_z);
+
+figure(4)
+subplot(211)
+hold on
+imagesc(dt_vals, z_vals, avg_RT);
+ylabel('Threshold')
+xlabel('Time step')
+title('RT')
+plot(best_dt, best_z, '*g')
+colorbar
+xlim([0.01, 0.8])
+
+subplot(212)
+hold on
+imagesc(dt_vals, z_vals, percent_correct);
+plot(best_dt, best_z, '*g')
+ylabel('Threshold')
+title('Accuracy (Both Correct)')
+colorbar
+xlim([0.01, 0.8])
+%subplot(313)
+%imagesc(A, z, percent_both_correct_DRTHtest);
+%ylabel('Threshold')
+xlabel('Time step')
+sgtitle('Finding best values')
+
+%% Plotting for best value 
+
+% ~~ Parameters ~~
+A = 1;
+c = 1;
+y1_0 = 0;
+best_dt=0.06;
+best_z=0.95;
+
+% Running for 22000 trials
+N=22000;
+    
+    rts=zeros(N,1);
+    corrects=zeros(N,1);
+    both_corrects=zeros(N,1);
+    
+    for i=1:N
+        [rt,correct,both_correct]=parallelProcessingSimulation(A,c,y1_0,best_z,best_dt);
+        rts(i)=rt;
+        corrects(i)=correct;
+        both_corrects(i)=both_correct;
+    end
+hold on
+figure(6)
+hist(rts,50)
+xline(1.245,'--',"mean rt")
+xlabel("rt")
+ylabel("count")
+title("rt histogram for tuned parameters")
