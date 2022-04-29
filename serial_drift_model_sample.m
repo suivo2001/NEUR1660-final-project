@@ -9,6 +9,7 @@ T0=0.01; %non-decision time
 dt=0.01; % time step
 A = 0.5; % drift rate
 
+figure(1)
 i=1;
 while  abs(y01(i))<z1
     r=randn(1);
@@ -54,6 +55,8 @@ z2=0.9; %threshold for stimulus 2
 T0=0.01; %non-decision time
 dt=0.01; % time step
 A = 0.5; % drift rate
+
+figure(2)
 i=1;
 while  abs(y01(i))<z1
     r=randn(1);
