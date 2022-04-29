@@ -38,6 +38,8 @@ for i=1:length(datafiles)
     clear Correct2; clear Trial_Type; clear RT2; clear p; clear RT_unique;
 end
 
-% RT_avg=nanmean(RT);
-% Correct_avgnanmean(Correct);
+RT_avg=nanmean(RT);
+RT_std=nanstd(RT);
+Correct_avg=nanmean(Correct);
+Correct_std=nanstd(Correct)
 end
