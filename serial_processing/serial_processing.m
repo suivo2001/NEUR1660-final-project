@@ -1,6 +1,6 @@
 function [RT, correct, incorrect, false_positive] = serial_processing(A,c,dt,y01,z1,z2,T0)
 %% -- NEUR1660 Final Project -- Serial Processing Function (DDM Model)
-% Last Update: April 17, 2022,
+% Last Update: April 26, 2022,
 % Michaela Alarie and Elizabeth Doss
 % Usage: Drift Diffusion Model for serial processing. Serial processing task
     %%%  has two different stimuli, one that must reach a threshold before
@@ -49,22 +49,27 @@ correct=correct+false_positive;
 dtmat = (1:1:(i+j))*dt;
 alldata = cat(2,y01, y02);
 
-% figure(1)
+% figure
 % plot(dtmat,alldata, 'k', 'LineWidth', 1.2)
+% hold on
 % if y01(end)>z1 && y02(end)>z2
 %     yline(y02(end), '--r', 'LineWidth', 1.2)
+%     hold on
 %     yline(y01(end), '--r', 'LineWidth', 1.2)
 %     title('Evidence Accumulation (Correct Choice)')
 % elseif y01(end)<-z1 && y02(end)<-z2
 %     yline(y02(end), '--r', 'LineWidth', 1.2)
+%     hold on
 %     yline(y01(end), '--r', 'LineWidth', 1.2)
 %     title('Evidence Accumulation (Correct Choice: FALSE POSITIVE)')
 % else
 %     yline(y02(end), '--r', 'LineWidth', 1.2)
+%     hold on
 %     yline(y01(end), '--g', 'LineWidth', 1.2)
 %     title('Evidence Accumulation (Incorrect Choice)')
 % end
 % xline(dt*i, 'b','LineWidth', 1.1)
+% hold on
 % xline(dtmat(end), 'm','LineWidth', 1.1)
 % ylabel('Evidence Accumulation')
 % xlabel('Time Step')
