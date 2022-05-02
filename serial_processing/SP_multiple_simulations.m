@@ -1,7 +1,7 @@
-function [percent_correct, percent_falsepositive, avg_RT] = SP_multiple_simulations(A,c,dt,y01,z1,z2,T0,N)
+function [percent_correct, percent_falsepositive, avg_RT, RT] = SP_multiple_simulations(A,c,dt,y01,z1,z2,T0,N)
 %% Serial Processing (SP) run on multiple simulations (N)
 % NEUR 1660: Final Project
-% Last Update: April 17, 2022
+% Last Update: April 26, 2022
 % Michaela Alarie and Elizabeth Doss
 % Usage: Drift Diffusion Model for serial processing. Serial processing task
     %%%  has two different stimuli, one that must reach a threshold before

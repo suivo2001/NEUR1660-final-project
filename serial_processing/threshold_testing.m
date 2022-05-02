@@ -10,10 +10,13 @@ dt=0.05; % time step
 %%% Alter
 z1=0.1:0.05:0.85;
 z2=0.15:0.05:0.9;
-
-for k=1:length(z1)
-    for p=1:length(z2)
-        [percent_correct(k,p), percent_falsepositive(k,p), avg_RT(k,p)] = SP_multiple_simulations(A,c,dt,y01,z1(k),z2(p),T0,N);
+k1=0;
+for k=1:length(z2)
+    for p=1:length(z1)
+        if z1(p)>z2(k)
+        else
+            [percent_correct(k,p), percent_falsepositive(k,p), avg_RT(k,p)] = SP_multiple_simulations(A,c,dt,y01,z1(p),z2(k),T0,N);
+        end
     end
 end
 %%
